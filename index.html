@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Jhoan Salinas — Analog Design Engineer (SerDes)">
+<title>Jhoan Salinas — Analog Design Engineer (SerDes)</title>
+<style>
+  :root {
+    --bg: #0b0f17;
+    --bg-soft: #111826;
+    --card: #141c2c;
+    --text: #e8edf5;
+    --muted: #93a1b8;
+    --accent: #38bdf8;
+    --accent-dim: rgba(56,189,248,.12);
+    --border: rgba(148,163,184,.14);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(12px);
+    background: rgba(11,15,23,.75);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 920px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name { font-weight: 700; font-size: 1rem; letter-spacing: .02em; }
+  .nav-name span { color: var(--accent); }
+  .nav-links { display: flex; gap: 22px; align-items: center; font-size: .92rem; }
+  .nav-links a { color: var(--muted); }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .lang-toggle {
+    display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden;
+  }
+  .lang-toggle button {
+    background: transparent; border: 0; color: var(--muted);
+    padding: 6px 14px; font-size: .8rem; font-weight: 600; cursor: pointer;
+  }
+  .lang-toggle button.active { background: var(--accent-dim); color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 110px 24px 90px; text-align: center;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(600px 300px at 50% -50px, rgba(56,189,248,.16), transparent 70%);
+    pointer-events: none;
+  }
+  .wave {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 90px; opacity: .25; pointer-events: none;
+  }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; position: relative; }
+  .hero h1 .accent { color: var(--accent); }
+  .hero .role {
+    margin-top: 10px; font-size: 1.15rem; color: var(--accent); font-weight: 600; position: relative;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .hero p { max-width: 620px; margin: 22px auto 0; color: var(--muted); font-size: 1.05rem; position: relative; }
+  .hero-cta { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn {
+    display: inline-block; padding: 12px 26px; border-radius: 10px; font-weight: 600; font-size: .95rem;
+    border: 1px solid var(--border); color: var(--text); background: var(--bg-soft);
+  }
+  .btn:hover { text-decoration: none; border-color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #04121c; }
+  .btn.primary:hover { filter: brightness(1.08); }
+
+  main { max-width: 920px; margin: 0 auto; padding: 0 24px 60px; }
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.5rem; margin-bottom: 22px; letter-spacing: -.01em; }
+  h2 .dot { color: var(--accent); }
+
+  .about p { color: var(--muted); max-width: 720px; margin-bottom: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .chip {
+    font-size: .82rem; font-weight: 500; color: var(--accent);
+    background: var(--accent-dim); border: 1px solid rgba(56,189,248,.25);
+    padding: 6px 14px; border-radius: 999px;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 26px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .card:hover { transform: translateY(-3px); border-color: rgba(56,189,248,.4); }
+  .card h3 { font-size: 1.1rem; }
+  .card p { color: var(--muted); font-size: .94rem; flex: 1; }
+  .card .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .card .tags span {
+    font-size: .75rem; color: var(--muted); border: 1px solid var(--border);
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .card .repo-link { font-size: .9rem; font-weight: 600; }
+
+  .contact-box {
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px;
+    padding: 44px 32px; text-align: center;
+  }
+  .contact-box p { color: var(--muted); margin: 12px 0 26px; }
+
+  footer {
+    text-align: center; color: var(--muted); font-size: .85rem;
+    padding: 32px 24px 48px; border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 560px) {
+    .nav-links a { display: none; }
+    .hero { padding: 80px 20px 70px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-name">Jhoan Salinas <span data-i18n="navTitle"></span></div>
+    <div class="nav-links">
+      <a href="#about" data-i18n="navAbout"></a>
+      <a href="#projects" data-i18n="navProjects"></a>
+      <a href="#contact" data-i18n="navContact"></a>
+      <div class="lang-toggle">
+        <button id="btn-es" type="button">ES</button>
+        <button id="btn-en" type="button">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Jhoan <span class="accent">Salinas</span></h1>
+  <div class="role" data-i18n="heroRole"></div>
+  <p data-i18n="heroText"></p>
+  <div class="hero-cta">
+    <a class="btn primary" href="#projects" data-i18n="heroCtaProjects"></a>
+    <a class="btn" href="https://github.com/jasdpoe" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 C150,20 300,80 450,50 C600,20 750,75 900,45 C1050,15 1150,55 1200,40 L1200,90 L0,90 Z"
+          fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M0,70 C150,40 300,85 450,60 C600,35 750,80 900,55 C1050,30 1150,65 1200,50 L1200,90 L0,90 Z"
+          fill="none" stroke="#38bdf8" stroke-width="1" opacity=".5"/>
+  </svg>
+</header>
+
+<main>
+  <section id="about" class="about">
+    <h2><span class="dot">/</span><span data-i18n="aboutTitle"></span></h2>
+    <p data-i18n="aboutP1"></p>
+    <p data-i18n="aboutP2"></p>
+    <div class="chips">
+      <span class="chip">SerDes</span>
+      <span class="chip">Wireline links</span>
+      <span class="chip">Signal integrity</span>
+      <span class="chip">EM simulation</span>
+      <span class="chip">ngspice</span>
+      <span class="chip">Python</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2><span class="dot">/</span><span data-i18n="projectsTitle"></span></h2>
+    <div class="grid">
+      <div class="card">
+        <h3>portfolio-tools</h3>
+        <p data-i18n="proj1Text"></p>
+        <div class="tags"><span>Python</span><span data-i18n="proj1Tag"></span></div>
+        <a class="repo-link" href="https://github.com/jasdpoe/portfolio-tools" target="_blank" rel="noopener" data-i18n="viewRepo"></a>
+      </div>
+      <div class="card">
+        <h3>Market Grid</h3>
+        <p data-i18n="proj2Text"></p>
+        <div class="tags"><span>TypeScript</span><span>React</span><span>Cloudflare Workers</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-box">
+      <h2 data-i18n="contactTitle"></h2>
+      <p data-i18n="contactText"></p>
+      <a class="btn primary" href="https://github.com/jasdpoe" target="_blank" rel="noopener">github.com/jasdpoe</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span data-i18n="footerText"></span>
+</footer>
+
+<script>
+const STRINGS = {
+  es: {
+    navTitle: "// serdes",
+    navAbout: "Sobre mí",
+    navProjects: "Proyectos",
+    navContact: "Contacto",
+    heroRole: "Analog Design Engineer (SerDes)",
+    heroText: "Diseño circuitos analógicos para enlaces de alta velocidad: SerDes, wireline y la física detrás de cada bit.",
+    heroCtaProjects: "Ver proyectos",
+    aboutTitle: "sobre mí",
+    aboutP1: "Soy ingeniero de diseño analógico enfocado en SerDes y enlaces cableados (wireline) de alta velocidad. Me apasiona la intersección entre la teoría y el silicio: modelado de canales, integridad de señal y simulación electromagnética.",
+    aboutP2: "Fuera del laboratorio construyo herramientas de software — desde análisis técnico de mercados hasta dashboards de datos en tiempo real — y sigo de cerca la investigación en wireline links.",
+    projectsTitle: "proyectos",
+    proj1Text: "Herramientas de análisis técnico para portafolios: gráficas diarias con Bollinger Bands, RSI y volumen.",
+    proj1Tag: "Análisis técnico",
+    proj2Text: "Dashboard de análisis técnico en tiempo real (React/Vite + Cloudflare Workers): velas, Bollinger, RSI y auto-refresh.",
+    viewRepo: "Ver en GitHub →",
+    contactTitle: "¿Hablamos?",
+    contactText: "Puedes encontrarme en GitHub.",
+    footerText: "© 2026 Jhoan Salinas · Hecho a mano con HTML y CSS"
+  },
+  en: {
+    navTitle: "// serdes",
+    navAbout: "About",
+    navProjects: "Projects",
+    navContact: "Contact",
+    heroRole: "Analog Design Engineer (SerDes)",
+    heroText: "I design analog circuits for high-speed links: SerDes, wireline, and the physics behind every bit.",
+    heroCtaProjects: "View projects",
+    aboutTitle: "about",
+    aboutP1: "I'm an analog design engineer focused on SerDes and high-speed wireline links. I'm passionate about the intersection of theory and silicon: channel modeling, signal integrity, and electromagnetic simulation.",
+    aboutP2: "Outside the lab I build software tools — from market technical analysis to real-time data dashboards — and follow wireline-link research closely.",
+    projectsTitle: "projects",
+    proj1Text: "Technical-analysis tooling for portfolios: daily charts with Bollinger Bands, RSI, and volume.",
+    proj1Tag: "Technical analysis",
+    proj2Text: "Real-time technical-analysis dashboard (React/Vite + Cloudflare Workers): candles, Bollinger, RSI, and auto-refresh.",
+    viewRepo: "View on GitHub →",
+    contactTitle: "Let's talk?",
+    contactText: "You can find me on GitHub.",
+    footerText: "© 2026 Jhoan Salinas · Handmade with HTML and CSS"
+  }
+};
+
+function setLang(lang) {
+  if (!STRINGS[lang]) lang = "es";
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (STRINGS[lang][key] !== undefined) el.textContent = STRINGS[lang][key];
+  });
+  document.title = "Jhoan Salinas — Analog Design Engineer (SerDes)";
+  document.getElementById("btn-es").classList.toggle("active", lang === "es");
+  document.getElementById("btn-en").classList.toggle("active", lang === "en");
+  try { localStorage.setItem("js-lang", lang); } catch (e) {}
+}
+
+document.getElementById("btn-es").addEventListener("click", () => setLang("es"));
+document.getElementById("btn-en").addEventListener("click", () => setLang("en"));
+
+let initial = "es";
+try { initial = localStorage.getItem("js-lang") || "es"; } catch (e) {}
+setLang(initial);
+</script>
+
+</body>
+</html>
