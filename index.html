@@ -122,6 +122,12 @@
     text-align: center; color: var(--muted); font-size: .85rem;
     padding: 32px 24px 48px; border-top: 1px solid var(--border);
   }
+  .visitors { margin-bottom: 28px; }
+  .visitors-label {
+    font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .visitors img { border-radius: 8px; }
 
   @media (max-width: 560px) {
     .nav-links a { display: none; }
@@ -207,6 +213,10 @@
 </main>
 
 <footer>
+  <div class="visitors">
+    <div class="visitors-label" data-i18n="visitorsTitle"></div>
+    <a href="https://info.flagcounter.com/4i1q" target="_blank" rel="noopener"><img src="https://s01.flagcounter.com/count2/4i1q/bg_0B0F17/txt_E8EDF5/border_1C2433/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+  </div>
   <span data-i18n="footerText"></span>
 </footer>
 
@@ -230,6 +240,7 @@ const STRINGS = {
     viewRepo: "Ver en GitHub →",
     contactTitle: "¿Hablamos?",
     contactText: "Puedes encontrarme en GitHub.",
+    visitorsTitle: "Visitas",
     footerText: "© 2026 Jhoan Salinas · Hecho a mano con HTML y CSS"
   },
   en: {
@@ -250,6 +261,7 @@ const STRINGS = {
     viewRepo: "View on GitHub →",
     contactTitle: "Let's talk?",
     contactText: "You can find me on GitHub.",
+    visitorsTitle: "Visits",
     footerText: "© 2026 Jhoan Salinas · Handmade with HTML and CSS"
   }
 };
