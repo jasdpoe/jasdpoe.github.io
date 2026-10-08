@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="What is a SerDes? — a short explainer by Jhoan Salinas">
+<title>What is a SerDes? — Jhoan Salinas</title>
+<style>
+  :root {
+    --bg: #0b0f17;
+    --bg-soft: #111826;
+    --card: #141c2c;
+    --text: #e8edf5;
+    --body: #c4cfdf;
+    --muted: #93a1b8;
+    --accent: #38bdf8;
+    --accent-dim: rgba(56,189,248,.12);
+    --border: rgba(148,163,184,.14);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(12px);
+    background: rgba(11,15,23,.75);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 760px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name { font-weight: 700; font-size: 1rem; }
+  .nav-name span { color: var(--accent); }
+  .nav-back { font-size: .9rem; color: var(--muted); }
+  .nav-back:hover { color: var(--text); text-decoration: none; }
+
+  .article { max-width: 760px; margin: 0 auto; padding: 64px 24px 80px; }
+  .article-meta {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    font-size: .82rem; color: var(--muted); margin-bottom: 18px;
+  }
+  .article-meta .tag {
+    color: var(--accent); background: var(--accent-dim);
+    border: 1px solid rgba(56,189,248,.25);
+    padding: 2px 10px; border-radius: 999px; font-size: .74rem;
+  }
+  .article h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800;
+    letter-spacing: -.02em; line-height: 1.2; margin-bottom: 14px;
+  }
+  .article .lede { font-size: 1.12rem; color: var(--muted); margin-bottom: 40px; }
+  .article h2 { font-size: 1.4rem; margin: 44px 0 14px; letter-spacing: -.01em; }
+  .article h2 .dot { color: var(--accent); }
+  .article p { color: var(--body); margin-bottom: 16px; }
+  .article ul { color: var(--body); margin: 0 0 16px 22px; }
+  .article li { margin-bottom: 8px; }
+  .article code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .88em; background: rgba(56,189,248,.1);
+    padding: 2px 7px; border-radius: 5px; color: var(--accent);
+  }
+  .callout {
+    border-left: 3px solid var(--accent); background: var(--accent-dim);
+    padding: 14px 18px; border-radius: 0 10px 10px 0;
+    margin: 24px 0; color: var(--body); font-size: .96rem;
+  }
+  .callout strong { color: var(--text); }
+  .diagram {
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    margin: 28px 0; padding: 20px;
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px;
+  }
+  .diagram .blk {
+    border: 1px solid rgba(56,189,248,.35); background: var(--card);
+    padding: 8px 14px; border-radius: 9px; font-size: .84rem; font-weight: 600;
+    white-space: nowrap;
+  }
+  .diagram .blk.chan { border-color: rgba(148,163,184,.4); color: var(--muted); font-weight: 500; }
+  .diagram .arrow { color: var(--accent); font-weight: 700; }
+  .article-footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    color: var(--muted); font-size: .88rem;
+  }
+  footer {
+    text-align: center; color: var(--muted); font-size: .85rem;
+    padding: 32px 24px 48px; border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-name"><a href="../index.html" style="color:inherit">Jhoan Salinas <span>// serdes</span></a></div>
+    <a class="nav-back" href="../index.html#learning">← Back to Learning</a>
+  </div>
+</nav>
+
+<article class="article">
+  <div class="article-meta">
+    <span>Oct 2026</span><span>·</span><span>4 min read</span>
+    <span class="tag">SerDes</span><span class="tag">Fundamentals</span>
+  </div>
+  <h1>What is a SerDes?</h1>
+  <p class="lede">A SerDes — serializer/deserializer — is the pair of circuits that lets a handful of pins move hundreds of gigabits per second. It sits at the heart of PCIe, USB, Ethernet, and most chip-to-chip links.</p>
+
+  <h2><span class="dot">/</span>Why serialize?</h2>
+  <p>Moving data in parallel is simple: one wire per bit, all switching together. But parallel buses don't scale. Every extra pin costs package area, every trace needs length matching, and at gigahertz speeds, skew and crosstalk between parallel lines become unmanageable.</p>
+  <p>Serialization trades <strong style="color:var(--text)">width for speed</strong>: take N parallel bits, send them one after another over a single differential pair, and reconstruct them on the other side. Fewer pins, simpler routing, and the link can run at tens of gigabaud per lane.</p>
+
+  <h2><span class="dot">/</span>The signal chain</h2>
+  <p>A complete SerDes link looks like this:</p>
+  <div class="diagram">
+    <span class="blk">Serializer</span><span class="arrow">→</span>
+    <span class="blk">TX driver + FFE</span><span class="arrow">→</span>
+    <span class="blk chan">Channel</span><span class="arrow">→</span>
+    <span class="blk">CTLE</span><span class="arrow">→</span>
+    <span class="blk">DFE</span><span class="arrow">→</span>
+    <span class="blk">CDR</span><span class="arrow">→</span>
+    <span class="blk">Deserializer</span>
+  </div>
+  <ul>
+    <li><strong style="color:var(--text)">Serializer:</strong> converts the parallel word into a serial bit stream, usually with a high-speed multiplexer tree.</li>
+    <li><strong style="color:var(--text)">TX driver + FFE:</strong> launches the signal into the channel. A feed-forward equalizer (FFE) pre-emphasizes transitions to pre-compensate the channel's high-frequency loss.</li>
+    <li><strong style="color:var(--text)">Channel:</strong> PCB traces, vias, connectors. It behaves like a low-pass filter, smearing each bit into its neighbors — inter-symbol interference (ISI).</li>
+    <li><strong style="color:var(--text)">CTLE:</strong> a continuous-time linear equalizer at the receiver that provides high-frequency peaking to undo part of the channel loss.</li>
+    <li><strong style="color:var(--text)">DFE:</strong> a decision-feedback equalizer that subtracts the ISI contributed by previously decided bits — no noise amplification, unlike linear equalization.</li>
+    <li><strong style="color:var(--text)">CDR:</strong> the clock-and-data recovery loop extracts timing from the data itself, since no separate clock is sent. It must lock to the incoming phase and track slow drift.</li>
+    <li><strong style="color:var(--text)">Deserializer:</strong> converts the recovered serial stream back to parallel words for the digital core.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Key idea:</strong> a SerDes is a mixed-signal control problem. The analog front end fights the physics of the channel, while adaptation loops (for CTLE peaking, DFE taps, CDR phase) continuously optimize the link in the background.
+  </div>
+
+  <h2><span class="dot">/</span>Where you'll find them</h2>
+  <p>Everywhere high-speed data moves: PCIe lanes between CPU and GPU, USB4/Thunderbolt cables, 112G Ethernet switch fabrics, memory interfaces, and die-to-die links inside multi-chip packages. The data rates keep climbing — 224 Gb/s per lane is on the horizon — which is why equalization and CDR design remain such an active area.</p>
+
+  <div class="article-footer">
+    <span>Written by Jhoan Salinas</span>
+    <a href="../index.html#learning">← More in Learning</a>
+  </div>
+</article>
+
+<footer>
+  © 2026 Jhoan Salinas · Handmade with HTML and CSS
+</footer>
+
+</body>
+</html>
