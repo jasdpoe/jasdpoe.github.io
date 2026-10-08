@@ -154,7 +154,7 @@
     <div class="nav-links">
       <a href="#about" data-i18n="navAbout"></a>
       <a href="#projects" data-i18n="navProjects"></a>
-      <a href="#learning">Learning</a>
+      <a href="#learning" data-i18n="navLearning"></a>
       <a href="#contact" data-i18n="navContact"></a>
       <div class="lang-toggle">
         <button id="btn-es" type="button">ES</button>
@@ -213,20 +213,20 @@
   </section>
 
   <section id="learning">
-    <h2><span class="dot">/</span>learning</h2>
-    <p class="section-lead">Notes and explainers on electronics and high-speed SerDes concepts — the fundamentals and details I keep coming back to. All in English.</p>
+    <h2><span class="dot">/</span><span data-i18n="learningTitle"></span></h2>
+    <p class="section-lead" data-i18n="learningLead"></p>
     <div class="grid">
       <div class="card">
-        <div class="article-meta"><span>Oct 2026</span><span>·</span><span>4 min read</span><span class="tag">SerDes</span></div>
+        <div class="article-meta"><span data-i18n="learningDate1"></span><span>·</span><span data-i18n="learningTime1"></span><span class="tag">SerDes</span></div>
         <h3>What is a SerDes?</h3>
-        <p>Serializers and deserializers are the reason a handful of pins can move hundreds of gigabits per second. Here's how the pieces fit together.</p>
-        <a class="repo-link" href="learning/what-is-a-serdes.html">Read →</a>
+        <p data-i18n="learningCard1Desc"></p>
+        <a class="repo-link" href="learning/what-is-a-serdes.html" data-i18n="learningRead"></a>
       </div>
       <div class="card">
-        <div class="article-meta"><span>Oct 2026</span><span>·</span><span>3 min read</span><span class="tag">Serial links</span></div>
+        <div class="article-meta"><span data-i18n="learningDate2"></span><span>·</span><span data-i18n="learningTime2"></span><span class="tag">Serial links</span></div>
         <h3>What is a serial link?</h3>
-        <p>The system that lets two chips talk — over copper or fiber — and why pushing to 200 Gb/s and beyond is an engineering battle.</p>
-        <a class="repo-link" href="learning/what-is-a-serial-link.html">Read →</a>
+        <p data-i18n="learningCard2Desc"></p>
+        <a class="repo-link" href="learning/what-is-a-serial-link.html" data-i18n="learningRead"></a>
       </div>
     </div>
   </section>
@@ -272,6 +272,16 @@ const STRINGS = {
     contactTitle: "¿Hablamos?",
     contactText: "Puedes encontrarme en GitHub.",
     visitorsTitle: "Visitas",
+    navLearning: "Aprendizaje",
+    learningTitle: "aprendizaje",
+    learningLead: "Notas y explicadores sobre electrónica y conceptos de SerDes de alta velocidad — los fundamentos y detalles a los que siempre vuelvo. Todo en inglés.",
+    learningDate1: "oct 2026",
+    learningTime1: "4 min de lectura",
+    learningCard1Desc: "Por qué un puñado de pines puede mover cientos de gigabits por segundo: así encajan las piezas.",
+    learningDate2: "oct 2026",
+    learningTime2: "3 min de lectura",
+    learningCard2Desc: "El sistema que permite que dos chips se comuniquen — por cobre o fibra — y por qué llegar a 200 Gb/s y más allá es una batalla de ingeniería.",
+    learningRead: "Leer →",
     footerText: "© 2026 Jhoan Salinas · Hecho a mano con HTML y CSS"
   },
   en: {
@@ -293,6 +303,16 @@ const STRINGS = {
     contactTitle: "Let's talk?",
     contactText: "You can find me on GitHub.",
     visitorsTitle: "Visits",
+    navLearning: "Learning",
+    learningTitle: "learning",
+    learningLead: "Notes and explainers on electronics and high-speed SerDes concepts — the fundamentals and details I keep coming back to. All in English.",
+    learningDate1: "Oct 2026",
+    learningTime1: "4 min read",
+    learningCard1Desc: "Serializers and deserializers are the reason a handful of pins can move hundreds of gigabits per second. Here's how the pieces fit together.",
+    learningDate2: "Oct 2026",
+    learningTime2: "3 min read",
+    learningCard2Desc: "The system that lets two chips talk — over copper or fiber — and why pushing to 200 Gb/s and beyond is an engineering battle.",
+    learningRead: "Read →",
     footerText: "© 2026 Jhoan Salinas · Handmade with HTML and CSS"
   }
 };
