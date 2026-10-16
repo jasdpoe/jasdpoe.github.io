@@ -1,334 +1,44 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es" id="top">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Jhoan Salinas — Analog Design Engineer (SerDes)">
-<title>Jhoan Salinas — Analog Design Engineer (SerDes)</title>
-<style>
-  :root {
-    --bg: #0b0f17;
-    --bg-soft: #111826;
-    --card: #141c2c;
-    --text: #e8edf5;
-    --muted: #93a1b8;
-    --accent: #38bdf8;
-    --accent-dim: rgba(56,189,248,.12);
-    --border: rgba(148,163,184,.14);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  /* Nav */
-  nav {
-    position: sticky; top: 0; z-index: 10;
-    backdrop-filter: blur(12px);
-    background: rgba(11,15,23,.75);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    max-width: 920px; margin: 0 auto; padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-name { font-weight: 700; font-size: 1rem; letter-spacing: .02em; }
-  .nav-name span { color: var(--accent); }
-  .nav-links { display: flex; gap: 22px; align-items: center; font-size: .92rem; }
-  .nav-links a { color: var(--muted); }
-  .nav-links a:hover { color: var(--text); text-decoration: none; }
-  .lang-toggle {
-    display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden;
-  }
-  .lang-toggle button {
-    background: transparent; border: 0; color: var(--muted);
-    padding: 6px 14px; font-size: .8rem; font-weight: 600; cursor: pointer;
-  }
-  .lang-toggle button.active { background: var(--accent-dim); color: var(--accent); }
-
-  /* Hero */
-  .hero {
-    position: relative; overflow: hidden;
-    padding: 110px 24px 90px; text-align: center;
-  }
-  .hero::before {
-    content: ""; position: absolute; inset: 0;
-    background:
-      radial-gradient(600px 300px at 50% -50px, rgba(56,189,248,.16), transparent 70%);
-    pointer-events: none;
-  }
-  .wave {
-    position: absolute; left: 0; right: 0; bottom: 0; height: 90px; opacity: .25; pointer-events: none;
-  }
-  .hero h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -.02em; position: relative; }
-  .hero h1 .accent { color: var(--accent); }
-  .hero .role {
-    margin-top: 10px; font-size: 1.15rem; color: var(--accent); font-weight: 600; position: relative;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
-  .hero p { max-width: 620px; margin: 22px auto 0; color: var(--muted); font-size: 1.05rem; position: relative; }
-  .hero-cta { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
-  .btn {
-    display: inline-block; padding: 12px 26px; border-radius: 10px; font-weight: 600; font-size: .95rem;
-    border: 1px solid var(--border); color: var(--text); background: var(--bg-soft);
-  }
-  .btn:hover { text-decoration: none; border-color: var(--accent); }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #04121c; }
-  .btn.primary:hover { filter: brightness(1.08); }
-
-  main { max-width: 920px; margin: 0 auto; padding: 0 24px 60px; }
-  section { padding: 56px 0; border-top: 1px solid var(--border); }
-  h2 { font-size: 1.5rem; margin-bottom: 22px; letter-spacing: -.01em; }
-  h2 .dot { color: var(--accent); }
-
-  .about p { color: var(--muted); max-width: 720px; margin-bottom: 14px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-  .chip {
-    font-size: .82rem; font-weight: 500; color: var(--accent);
-    background: var(--accent-dim); border: 1px solid rgba(56,189,248,.25);
-    padding: 6px 14px; border-radius: 999px;
-  }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 26px;
-    display: flex; flex-direction: column; gap: 12px;
-    transition: transform .15s ease, border-color .15s ease;
-  }
-  .card:hover { transform: translateY(-3px); border-color: rgba(56,189,248,.4); }
-  .card h3 { font-size: 1.1rem; }
-  .card p { color: var(--muted); font-size: .94rem; flex: 1; }
-  .card .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .card .tags span {
-    font-size: .75rem; color: var(--muted); border: 1px solid var(--border);
-    padding: 3px 10px; border-radius: 999px;
-  }
-  .card .repo-link { font-size: .9rem; font-weight: 600; }
-
-  .section-lead { color: var(--muted); max-width: 720px; margin: -8px 0 26px; }
-  .article-meta {
-    display: flex; gap: 8px; align-items: center;
-    font-size: .78rem; color: var(--muted); letter-spacing: .04em;
-  }
-  .article-meta .tag {
-    color: var(--accent); background: var(--accent-dim);
-    border: 1px solid rgba(56,189,248,.25);
-    padding: 2px 10px; border-radius: 999px; font-size: .72rem;
-  }
-
-  .contact-box {
-    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px;
-    padding: 44px 32px; text-align: center;
-  }
-  .contact-box p { color: var(--muted); margin: 12px 0 26px; }
-  .contact-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-  footer {
-    text-align: center; color: var(--muted); font-size: .85rem;
-    padding: 32px 24px 48px; border-top: 1px solid var(--border);
-  }
-  .visitors { margin-bottom: 28px; }
-  .visitors-label {
-    font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 12px;
-  }
-  .visitors img { border-radius: 8px; }
-
-  @media (max-width: 560px) {
-    .nav-links a { display: none; }
-    .hero { padding: 80px 20px 70px; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jhoan Salinas. Diseño analógico, enlaces de alta velocidad y notas entre la teoría y el silicio.">
+  <title>Jhoan Salinas — Analog Design Engineer (SerDes)</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="daily.css">
+  <script src="home.js" defer></script>
+  <script src="modern.js" defer></script>
 </head>
-<body>
-
-<nav>
-  <div class="nav-inner">
-    <div class="nav-name">Jhoan Salinas <span data-i18n="navTitle"></span></div>
-    <div class="nav-links">
-      <a href="#about" data-i18n="navAbout"></a>
-      <a href="#projects" data-i18n="navProjects"></a>
-      <a href="#learning" data-i18n="navLearning"></a>
-      <a href="#contact" data-i18n="navContact"></a>
-      <div class="lang-toggle">
-        <button id="btn-es" type="button">ES</button>
-        <button id="btn-en" type="button">EN</button>
-      </div>
+<body data-design="Melocotón moderno">
+  <a class="skip" href="#main" data-i18n="skip">Ir al contenido</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="Jhoan Salinas, inicio"><span class="brand-symbol" aria-hidden="true">j<span>.</span>s</span><span>Jhoan Salinas</span></a>
+      <nav aria-label="Secciones"><a href="#about" data-i18n="navAbout">Sobre mí</a><a href="#learning" data-i18n="navLearning">Aprendizaje</a><a href="daily.html">The Daily</a><a href="#projects" data-i18n="navProjects">Proyectos</a></nav>
+      <div class="nav-actions"><div class="languages" role="group" aria-label="Idioma / Language"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="contact-link" href="#contact"><span data-i18n="navContact">Contacto</span><span aria-hidden="true">↗</span></a></div>
     </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <h1>Jhoan <span class="accent">Salinas</span></h1>
-  <div class="role" data-i18n="heroRole"></div>
-  <p data-i18n="heroText"></p>
-  <div class="hero-cta">
-    <a class="btn primary" href="#projects" data-i18n="heroCtaProjects"></a>
-    <a class="btn" href="https://github.com/jasdpoe" target="_blank" rel="noopener">GitHub</a>
-  </div>
-  <svg class="wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,60 C150,20 300,80 450,50 C600,20 750,75 900,45 C1050,15 1150,55 1200,40 L1200,90 L0,90 Z"
-          fill="none" stroke="#38bdf8" stroke-width="2"/>
-    <path d="M0,70 C150,40 300,85 450,60 C600,35 750,80 900,55 C1050,30 1150,65 1200,50 L1200,90 L0,90 Z"
-          fill="none" stroke="#38bdf8" stroke-width="1" opacity=".5"/>
-  </svg>
-</header>
-
-<main>
-  <section id="about" class="about">
-    <h2><span class="dot">/</span><span data-i18n="aboutTitle"></span></h2>
-    <p data-i18n="aboutP1"></p>
-    <p data-i18n="aboutP2"></p>
-    <div class="chips">
-      <span class="chip">SerDes</span>
-      <span class="chip">Wireline links</span>
-      <span class="chip">Signal integrity</span>
-      <span class="chip">EM simulation</span>
-      <span class="chip">ngspice</span>
-      <span class="chip">Python</span>
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2><span class="dot">/</span><span data-i18n="projectsTitle"></span></h2>
-    <div class="grid">
-      <div class="card">
-        <h3>portfolio-tools</h3>
-        <p data-i18n="proj1Text"></p>
-        <div class="tags"><span>Python</span><span data-i18n="proj1Tag"></span></div>
-        <a class="repo-link" href="https://github.com/jasdpoe/portfolio-tools" target="_blank" rel="noopener" data-i18n="viewRepo"></a>
-      </div>
-      <div class="card">
-        <h3>Market Grid</h3>
-        <p data-i18n="proj2Text"></p>
-        <div class="tags"><span>TypeScript</span><span>React</span><span>Cloudflare Workers</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="learning">
-    <h2><span class="dot">/</span><span data-i18n="learningTitle"></span></h2>
-    <p class="section-lead" data-i18n="learningLead"></p>
-    <div class="grid">
-      <div class="card">
-        <div class="article-meta"><span data-i18n="learningDate2"></span><span>·</span><span data-i18n="learningTime2"></span><span class="tag" data-i18n="learningTag"></span></div>
-        <h3 data-i18n="learningCardTitle"></h3>
-        <p data-i18n="learningCard2Desc"></p>
-        <a class="repo-link" href="learning/what-is-a-serial-link.html" data-i18n="learningRead"></a>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="contact-box">
-      <h2 data-i18n="contactTitle"></h2>
-      <p data-i18n="contactText"></p>
-      <div class="contact-actions">
-        <a class="btn primary" href="https://github.com/jasdpoe" target="_blank" rel="noopener">github.com/jasdpoe</a>
-        <a class="btn" href="https://www.linkedin.com/in/jhoan-salinas-26b67813/" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="visitors">
-    <div class="visitors-label" data-i18n="visitorsTitle"></div>
-    <a href="https://info.flagcounter.com/4i1q" target="_blank" rel="noopener"><img src="https://s01.flagcounter.com/count2/4i1q/bg_0B0F17/txt_E8EDF5/border_1C2433/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-  </div>
-  <span data-i18n="footerText"></span>
-</footer>
-
-<script>
-const STRINGS = {
-  es: {
-    navTitle: "// serdes",
-    navAbout: "Sobre mí",
-    navProjects: "Proyectos",
-    navContact: "Contacto",
-    heroRole: "Analog Design Engineer (SerDes)",
-    heroText: "Diseño circuitos analógicos para enlaces de alta velocidad: SerDes, wireline y la física detrás de cada bit.",
-    heroCtaProjects: "Ver proyectos",
-    aboutTitle: "sobre mí",
-    aboutP1: "Soy ingeniero de diseño analógico enfocado en SerDes y enlaces cableados (wireline) de alta velocidad. Me apasiona la intersección entre la teoría y el silicio: modelado de canales, integridad de señal y simulación electromagnética.",
-    aboutP2: "Fuera del laboratorio construyo herramientas de software — desde análisis técnico de mercados hasta dashboards de datos en tiempo real — y sigo de cerca la investigación en wireline links.",
-    projectsTitle: "proyectos",
-    proj1Text: "Herramientas de análisis técnico para portafolios: gráficas diarias con Bollinger Bands, RSI y volumen.",
-    proj1Tag: "Análisis técnico",
-    proj2Text: "Dashboard de análisis técnico en tiempo real (React/Vite + Cloudflare Workers): velas, Bollinger, RSI y auto-refresh.",
-    viewRepo: "Ver en GitHub →",
-    contactTitle: "¿Hablamos?",
-    contactText: "Puedes encontrarme en GitHub.",
-    visitorsTitle: "Visitas",
-    navLearning: "Aprendizaje",
-    learningTitle: "aprendizaje",
-    learningLead: "Notas y explicadores sobre electrónica y conceptos de SerDes de alta velocidad — los fundamentos y detalles a los que siempre vuelvo.",
-    learningDate2: "oct 2026",
-    learningTime2: "3 min de lectura",
-    learningTag: "Links seriales",
-    learningCardTitle: "¿Qué es un link serial?",
-    learningCard2Desc: "El sistema que permite que dos chips se comuniquen — por cobre o fibra — y por qué llegar a 200 Gb/s y más allá es una batalla de ingeniería.",
-    learningRead: "Leer →",
-    footerText: "© 2026 Jhoan Salinas · Hecho a mano con HTML y CSS"
-  },
-  en: {
-    navTitle: "// serdes",
-    navAbout: "About",
-    navProjects: "Projects",
-    navContact: "Contact",
-    heroRole: "Analog Design Engineer (SerDes)",
-    heroText: "I design analog circuits for high-speed links: SerDes, wireline, and the physics behind every bit.",
-    heroCtaProjects: "View projects",
-    aboutTitle: "about",
-    aboutP1: "I'm an analog design engineer focused on SerDes and high-speed wireline links. I'm passionate about the intersection of theory and silicon: channel modeling, signal integrity, and electromagnetic simulation.",
-    aboutP2: "Outside the lab I build software tools — from market technical analysis to real-time data dashboards — and follow wireline-link research closely.",
-    projectsTitle: "projects",
-    proj1Text: "Technical-analysis tooling for portfolios: daily charts with Bollinger Bands, RSI, and volume.",
-    proj1Tag: "Technical analysis",
-    proj2Text: "Real-time technical-analysis dashboard (React/Vite + Cloudflare Workers): candles, Bollinger, RSI, and auto-refresh.",
-    viewRepo: "View on GitHub →",
-    contactTitle: "Let's talk?",
-    contactText: "You can find me on GitHub.",
-    visitorsTitle: "Visits",
-    navLearning: "Learning",
-    learningTitle: "learning",
-    learningLead: "Notes and explainers on electronics and high-speed SerDes concepts — the fundamentals and details I keep coming back to.",
-    learningDate2: "Oct 2026",
-    learningTime2: "3 min read",
-    learningTag: "Serial links",
-    learningCardTitle: "What is a serial link?",
-    learningCard2Desc: "The system that lets two chips talk — over copper or fiber — and why pushing to 200 Gb/s and beyond is an engineering battle.",
-    learningRead: "Read →",
-    footerText: "© 2026 Jhoan Salinas · Handmade with HTML and CSS"
-  }
-};
-
-function setLang(lang) {
-  if (!STRINGS[lang]) lang = "es";
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (STRINGS[lang][key] !== undefined) el.textContent = STRINGS[lang][key];
-  });
-  document.title = "Jhoan Salinas — Analog Design Engineer (SerDes)";
-  document.getElementById("btn-es").classList.toggle("active", lang === "es");
-  document.getElementById("btn-en").classList.toggle("active", lang === "en");
-  try { localStorage.setItem("js-lang", lang); } catch (e) {}
-}
-
-document.getElementById("btn-es").addEventListener("click", () => setLang("es"));
-document.getElementById("btn-en").addEventListener("click", () => setLang("en"));
-
-let initial = "es";
-try { initial = localStorage.getItem("js-lang") || "es"; } catch (e) {}
-setLang(initial);
-</script>
-
+  </header>
+  <main id="main">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow"><span class="tiny-cross" aria-hidden="true">✳</span> ANALOG DESIGN ENGINEER / SERDES</p><h1 id="hero-title"><span data-i18n="modernHero1">La física detrás</span><br><em data-i18n="modernHero2">de cada bit.</em></h1><p class="hero-description" data-i18n="heroText">Diseño circuitos analógicos para enlaces de alta velocidad: SerDes, wireline y la física detrás de cada bit.</p><div class="hero-actions"><a class="button dark" href="#learning"><span data-i18n="modernExplore">Explorar mis notas</span><span aria-hidden="true">↗</span></a><a class="text-link" href="#projects"><span data-i18n="heroCtaProjects">Ver proyectos</span><span aria-hidden="true">→</span></a></div><p class="hero-signature" data-i18n="modernSignature">Jhoan Salinas · Entre la teoría y el silicio.</p></div>
+      <figure class="signal-figure"><div class="figure-top"><span>FIG. 01 / WIRELINE LINK</span><span class="figure-mark" aria-hidden="true">↗</span></div><svg class="signal-art" viewBox="0 0 440 350" role="img" aria-labelledby="signal-title signal-desc"><title id="signal-title">Transmisor, canal y receptor</title><desc id="signal-desc">Ilustración conceptual de una señal que viaja entre dos circuitos integrados. No representa una simulación ni datos medidos.</desc><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#ae806c" opacity=".3"/></pattern><linearGradient id="signal-fill" x1="0" x2="1"><stop stop-color="#e77c4e" stop-opacity=".06"/><stop offset=".5" stop-color="#e77c4e" stop-opacity=".5"/><stop offset="1" stop-color="#e77c4e" stop-opacity=".06"/></linearGradient></defs><rect width="440" height="350" fill="url(#dots)"/><path d="M45 175H395M220 35V315" stroke="#b98d76" stroke-width=".7" opacity=".45"/><path d="M56 175C99 175 117 88 164 88S230 262 277 262 341 175 384 175M56 175C99 175 117 262 164 262S230 88 277 88 341 175 384 175" fill="url(#signal-fill)" stroke="#b25035" stroke-width="2.5"/><path d="M56 175C100 175 119 105 164 105S232 245 277 245 341 175 384 175M56 175C100 175 119 245 164 245S232 105 277 105 341 175 384 175" fill="none" stroke="#b25035" stroke-opacity=".35" stroke-width="1.5"/><rect x="24" y="153" width="46" height="44" rx="9" fill="#382a2b"/><rect x="370" y="153" width="46" height="44" rx="9" fill="#382a2b"/><text x="47" y="180" text-anchor="middle" fill="#fff0de" font-family="monospace" font-size="12">TX</text><text x="393" y="180" text-anchor="middle" fill="#fff0de" font-family="monospace" font-size="12">RX</text><circle class="signal-point" cx="220" cy="175" r="5" fill="#382a2b"/><path d="M204 47H236M220 31V63M204 303H236M220 287V319" stroke="#b98d76" stroke-width="1"/><text x="220" y="338" text-anchor="middle" fill="#775547" font-family="monospace" font-size="10">THE PHYSICS BETWEEN THE BITS</text></svg><figcaption><span data-i18n="modernFigure">Transmisor → Canal → Receptor</span><span data-i18n="modernConcept">Esquema conceptual</span></figcaption></figure>
+    </section>
+    <div class="topic-strip"><div class="shell"><span>SerDes</span><span aria-hidden="true">✳</span><span>Wireline links</span><span aria-hidden="true">✳</span><span>Signal integrity</span><span aria-hidden="true">✳</span><span>EM simulation</span></div></div>
+    <section class="about shell section-grid" id="about"><div><p class="eyebrow" data-i18n="modernAboutLabel">01 / SOBRE MÍ</p><h2 data-i18n="modernAboutTitle">Del modelo<br>al mundo físico.</h2></div><div class="about-copy"><p data-i18n="aboutP1">Soy ingeniero de diseño analógico enfocado en SerDes y enlaces cableados (wireline) de alta velocidad. Me apasiona la intersección entre la teoría y el silicio: modelado de canales, integridad de señal y simulación electromagnética.</p><p data-i18n="aboutP2">Fuera del laboratorio construyo herramientas de software — desde análisis técnico de mercados hasta dashboards de datos en tiempo real — y sigo de cerca la investigación en wireline links.</p><div class="tool-labels" aria-label="Herramientas"><span>ngspice</span><span>Python</span><span>TypeScript</span></div></div></section>
+    <section class="learning shell" id="learning"><div class="section-heading"><div><p class="eyebrow" data-i18n="modernLearningLabel">02 / APRENDIZAJE</p><h2 data-i18n="modernLearningTitle">Ideas que vale la pena entender.</h2></div><span class="small-note" data-i18n="modernNotes">Notas de ingeniería, de cerca.</span></div><a class="featured-note" href="what-is-a-serial-link.html"><div class="note-graphic" aria-hidden="true"><span class="graphic-label">A → B</span><svg viewBox="0 0 300 170"><path d="M20 85H280" stroke="#ffd8b7" opacity=".2"/><path d="M20 115H50V55H90V115H130V55H170V115H210V55H250V115H280" fill="none" stroke="#ffd8b7" stroke-width="2"/><circle cx="150" cy="85" r="64" fill="none" stroke="#ffd8b7" opacity=".15"/></svg><span class="graphic-caption">SERIAL LINKS / 001</span></div><div class="note-copy"><p class="eyebrow"><span data-i18n="learningDate2">oct 2026</span> <span aria-hidden="true">·</span> <span data-i18n="learningTime2">3 min de lectura</span></p><h3 data-i18n="learningCardTitle">¿Qué es un link serial?</h3><p data-i18n="learningCard2Desc">El sistema que permite que dos chips se comuniquen — por cobre o fibra — y por qué llegar a 200 Gb/s y más allá es una batalla de ingeniería.</p><span class="read-link"><span data-i18n="modernRead">Leer el artículo</span><span class="circle-arrow" aria-hidden="true">↗</span></span></div></a></section>
+    <section class="daily-home shell" id="daily" aria-labelledby="daily-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="dailyLabel">03 / REFLEXIONES DIARIAS</p><h2 id="daily-title">The Daily</h2></div><a class="daily-section-link" href="daily.html"><span data-i18n="dailyBrowse">Ver todas las reflexiones</span><span aria-hidden="true">↗</span></a></div>
+      <p class="daily-description" data-i18n="dailyIntro">Reflexiones sobre tecnología, ingeniería y las preguntas que me acompañan cada día.</p>
+      <a class="daily-entry" href="daily-ai-mathematics-circuit-design.html">
+  <p class="eyebrow"><time datetime="2026-10-15" data-i18n="dailyDate">15 de octubre de 2026</time><br><span data-i18n="dailyTime">4 min de lectura</span></p>
+  <div><h3 data-i18n="dailyTitle">La IA, las matemáticas y el futuro del diseño de circuitos</h3><p data-i18n="dailySummary">Lo que los avances de la IA en matemáticas me hacen pensar sobre el diseño de circuitos: nuevas posibilidades y el riesgo de dejar de entender nuestras propias soluciones.</p><span class="text-link"><span data-i18n="dailyRead">Leer la reflexión</span> <span aria-hidden="true">→</span></span></div>
+  <span class="circle-arrow" aria-hidden="true">↗</span>
+</a>
+    </section>
+    <section class="projects shell" id="projects"><div class="section-heading"><div><p class="eyebrow" data-i18n="modernProjectsLabel">04 / PROYECTOS</p><h2 data-i18n="modernProjectsTitle">También construyo herramientas.</h2></div></div><div class="project-row"><span class="project-number">01</span><div><h3><a href="https://github.com/jasdpoe/portfolio-tools">portfolio-tools <span aria-hidden="true">↗</span></a></h3><p data-i18n="proj1Text">Herramientas de análisis técnico para portafolios: gráficas diarias con Bollinger Bands, RSI y volumen.</p></div><div class="project-tags"><span>Python</span><span data-i18n="proj1Tag">Análisis técnico</span></div></div><div class="project-row"><span class="project-number">02</span><div><h3>Market Grid</h3><p data-i18n="proj2Text">Dashboard de análisis técnico en tiempo real (React/Vite + Cloudflare Workers): velas, Bollinger, RSI y auto-refresh.</p></div><div class="project-tags"><span>React</span><span>TypeScript</span><span>Cloudflare Workers</span></div></div></section>
+    <section class="contact shell" id="contact"><div class="contact-panel"><div><p class="eyebrow" data-i18n="modernContactLabel">05 / CONTACTO</p><h2 data-i18n="modernContactTitle">Sigamos la conversación.</h2><p data-i18n="modernContactText">Sobre circuitos, software y lo que hay entre los dos.</p></div><div class="contact-actions"><a class="button light" href="https://github.com/jasdpoe">GitHub <span aria-hidden="true">↗</span></a><a class="contact-secondary" href="https://www.linkedin.com/in/jhoan-salinas-26b67813/">LinkedIn <span aria-hidden="true">↗</span></a></div></div></section>
+  </main>
+  <footer class="shell"><a class="footer-name" href="#top">Jhoan Salinas <span aria-hidden="true">↑</span></a><span class="visitors"><span data-i18n="visitorsTitle">Visitas</span><a href="https://info.flagcounter.com/4i1q" target="_blank" rel="noopener"><img src="https://s01.flagcounter.com/count2/4i1q/bg_FFD2AF/txt_38292B/border_38292B/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></span><span data-i18n="footerText">© 2026 Jhoan Salinas · Hecho a mano con HTML y CSS</span></footer>
 </body>
 </html>
