@@ -1,0 +1,40 @@
+<!doctype html>
+  <div class="article-meta">
+    <span data-i18n="aDate">oct 2026</span><span>·</span><span data-i18n="aTime">3 min de lectura</span>
+    <span class="tag" data-i18n="aTag1">Links seriales</span><span class="tag" data-i18n="aTag2">Fundamentos</span>
+  </div>
+  <h1 data-i18n="aTitle">¿Qué es un link serial?</h1>
+  <p class="lede" data-i18n="aLede">Un link serial es el sistema que establece la comunicación entre dos circuitos integrados — todo lo necesario para mover datos de forma confiable de un chip a otro.</p>
+
+  <h2><span class="dot">/</span><span data-i18n="aH1">La idea</span></h2>
+  <p data-i18n="aP1">Quitando los detalles, un link serial es un concepto simple: un circuito integrado tiene datos, otro los necesita, y el link serial es el sistema completo en el medio — transmisor, canal físico y receptor trabajando juntos para entregar esos datos intactos.</p>
+  <div class="diagram">
+    <span class="blk">Chip A</span><span class="arrow">→</span>
+    <span class="blk chan" data-i18n="aChan">Canal de cobre u óptico</span><span class="arrow">→</span>
+    <span class="blk">Chip B</span>
+  </div>
+
+  <h2><span class="dot">/</span><span data-i18n="aH2">Cobre o luz</span></h2>
+  <p data-i18n="aP2">El canal — el medio físico que lleva la señal — viene en dos versiones:</p>
+  <ul>
+    <li><strong style="color:var(--text)" data-i18n="aLi1t">Cobre:</strong><span data-i18n="aLi1d"> un cable o una traza de PCB. Barato y ubicuo, pero con pérdidas a altas frecuencias.</span></li>
+    <li><strong style="color:var(--text)" data-i18n="aLi2t">Óptico:</strong><span data-i18n="aLi2d"> fibra, con conversión eléctrico-óptica en cada extremo. Pérdidas mucho menores en distancia, a costa de mayor complejidad.</span></li>
+  </ul>
+  <p data-i18n="aP3">En cualquier caso, el reto de ingeniería es el mismo: llevar más bits por segundo a través de un medio físico imperfecto.</p>
+
+  <h2><span class="dot">/</span><span data-i18n="aH3">El verdadero problema: la velocidad</span></h2>
+  <p data-i18n="aP4">La tendencia dominante en los links seriales es el aumento constante de la velocidad — y cada salto trae una nueva serie de problemas. Mayores data rates implican más atenuación de la señal en el canal, los bits se mezclan con sus vecinos (interferencia intersimbólica), el crosstalk y el jitter reducen los márgenes de temporización, y el consumo de potencia aumenta.</p>
+  <p data-i18n="aP5">Resolver estos problemas es precisamente lo que hacen los ingenieros de links seriales: ecualización para compensar las pérdidas del canal, recuperación de reloj para extraer la temporización de los propios datos, y un cuidadoso diseño analógico para que todo funcione a decenas de gigabaudios.</p>
+
+  <div class="callout">
+    <strong data-i18n="aCalloutT">Idea clave:</strong><span data-i18n="aCalloutD"> un link serial nunca es «solo un cable» — es un sistema completo diseñado alrededor de la física de mover bits cada vez más rápido en cada generación.</span>
+  </div>
+
+  <h2><span class="dot">/</span><span data-i18n="aH4">Estado del arte</span></h2>
+  <p><span data-i18n="aP6a">Hoy, el estado del arte en links seriales es transmitir a un data rate de </span><strong style="color:var(--text)" data-i18n="aP6b">200 gigabits por segundo por lane</strong><span data-i18n="aP6c"> — y ya hay desarrollos de links de 400 gigabits por lane por cable. Cada duplicación reabre todos los problemas anteriores, por lo que este campo nunca se detiene.</span></p>
+
+  <div class="article-footer">
+    <span data-i18n="aFooterBy">Escrito por Jhoan Salinas</span>
+    <a href="index.html#learning" data-i18n="aFooterMore">← Más en Aprendizaje</a>
+  </div>
+</article><footer><span data-i18n="aFooterCopy">© 2026 Jhoan Salinas · Hecho a mano con HTML y CSS</span></footer></div></body></html>
